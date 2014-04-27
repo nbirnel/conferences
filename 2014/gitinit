@@ -1,3 +1,12 @@
 Jesse Keating--@iamjkeating
 
 progit.org
+
+git bisect run ./test.sh
+git reset --hard [HASH] - kills changes
+git reset [HASH] - keeps changes on filesystem, nukes in git
+git grep
+git tag name [HASH]
+git show [TAG]
+
+github j2sol/git-talk
