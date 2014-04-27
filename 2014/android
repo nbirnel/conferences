@@ -1,0 +1,42 @@
+Getting ContentProviders
+provides a set of contents to anyone authorized to access it.
+owner of contentprovider defines the api to get and write to your info
+Cursor mCursor = getContentResolver()
+ .query (UserDictionary.Words.CONTENT_URI
+ blah blah blah)
+
+ Intents
+ 'serializable objects used to communicate between/within apps'
+ start activities/services
+ broadcast event: "SMS message received" intent can be sent by SMS service
+ Where's my phone gets permission to get intent of SMS service, and then
+ starts doing some stuff
+
+ Involving intents:
+ request system to find an app that can perform a service.
+ 'Would you like to use N N N to perform this action?'
+ 
+pressing home button sends an intent for home.
+home screen is just an app which responds to this request.
+
+package manager shows some info about installed apps
+
+Permissions:
+Apps define Permissions they wish to use
+Users must accept all of them to install the app.
+in addition to system permissions, apis can define permissions to their stuff.
+
+iOS allows all API's and data are available (with minor exceptions)
+review process to check they are not abused.
+
+Windows:
+Pre-UAC: all system APIs are available
+Post-UAC: some require elevation
+
+Avoid scaring your users:
+Give a reason to do give permissions - on the page. 
+avoid permissions of there is an alternate way to do things.
+instead of requesting write to contents permission,
+send an intent to have the Contacts app 
+
+
