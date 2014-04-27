@@ -1,0 +1,66 @@
+MySQL foundation and mariadb guy
+
+cheap - don't want to pay
+lazy - don't want to do
+selfish - want the stuff - easier to give back to community than maintain 
+
+Eric Raymond's new build system - failed.
+don't create new project, join one.
+community more important than code
+
+"forums don't work" - it is the project's job to make sure answers are given
+on forums.
+
+release early & often - aim for each release (including alpha) to be bug-free.
+work with distros & cloud providers to get product in.
+
+"You can't create a business with Apache license"
+- can't make *lots* of money and change the industry
+
+1)projects where lots of companies need it (linux, php, perl) successful project,
+but not companies
+
+2)internal tools realesed as open source to get more devels
+
+3)small company coding projects to sell as open source
+
+no offices
+company of equals - all equal shares
+"hacking business model"
+services or development?
+  services make money, but don't change the world
+is software for big community or a few big companies?
+do you need investors? then need an exit plan.
+
+apache license - anyone can fork, so you can't have a software company
+service company : valuation = 2 x revenue
+software : valuation = 10 x revenue + X * number_users
+
+sales points:
+more users
+less cost
+more developers (cheaper)
+no trap doors
+no vendor lock
+trustworthy - licenses won't change, support wont' end, company won't go out 
+  of business
+
+BSD too free for business
+open core - open source core, with closed features on top for sale
+  he thinks this is functionally not open-source. (but it is a valid business
+  model, as long as you are transparent about it)
+dual license - viral GPL plus commercial 
+  must own all of the code
+  gpl only works well fofr infrastrucure, easily embeddible products (libs, db)
+    then people will buy a license for something they want to keep closed source
+  agpl works for SAS (iText, mongodb)
+business source or time-delayed open source
+  source code available from start, but can't be used commercially under some
+  conditions. After X years, code will automatically convert to some open source
+  license.
+  3-5 years is reasonable. Start as GPL, convert to BSD? commercial must equal open.
+  Fred Trotter "Open source eventually license"
+  Monty Widenius
+  each new version restarts the clock for that version
+  Baasbox
+
