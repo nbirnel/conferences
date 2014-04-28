@@ -1,0 +1,42 @@
+Adam Williamson - Fedora QA Community Monkey
+
+tools for manipulating UEFI boot menu entries - from windows or linux
+
+single boot - easy: 
+  UEFI-native is fine
+  BIOS-native is fine (CSM - Compatibility Suport Module)
+  Secure boot on or off is fine (if distro supports it)
+
+mulit boot golden rule:
+  install 2nd os same way current OS installed:
+  windows 8 is UEFI-native
+  Vista pre-SP1 is BIOS-native
+  in between, check Disk Management for EFI System Partition
+  
+  Linux: check output of efibootmgr (an error means we are not in EFI),
+  or see if /sys/firmware/efi
+
+boot installer in mode we wish to use
+don't 'trick' UEFI into a different mode
+
+writing uefi-native meida:
+dd an iso file, or optical media
+(Fedora specific?)
+Livecd-iso-to-disk --efi --format --rest-mbr
+
+unetbootin probably won't work
+
+Peter Jackson - peboot? a way to sign your own key
+
+Matthew Garrett - pushed through Microsoft tells OEM
+that Intel x86 SecureBoot *must* be user-toggleable.
+but - ARM SecureBoot must *not* be able to be turned off.
+(or maybe this is a hardware issue?)
+
+there are intel tablets, though
+
+problems - what mode am I in?
+"don't use noefi"
+
+happyassassin.net - his blog has a post on it 
+Fedora wiki page

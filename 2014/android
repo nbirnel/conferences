@@ -1,0 +1,32 @@
+'mostly open source' - you can look at it, not contribute
+copying of source is encouraged
+about 75% market share vs 15% ios (somewhat misleading, since iOS is more
+  popular in wealthy countries)
+
+Activities -> can be thought of as a screen
+phone call app -> list of contacts -> contact info -> phone dialer
+web page -> click phone number -> phone dialer
+reusable components 
+
+Fragment - not another activity, but a way of replacing content.
+
+apps are Stacks of activities
+
+Back button
+if one activity for user task, all is well
+do it yourself if 
+  multiple tasks
+  custom game interface
+*not* undo
+'get me back to what I was doing before'
+look at a list of books. Open one. Read a few pages. Press back.
+   Currently reading, back should go back to the list.
+
+Services
+thought of as a special type of background process:
+  playing music
+  downloading files
+keeps happening even when user is not looking at your app
+could happen on startup, or triggered by user, or periodically (syncing email)
+
+
