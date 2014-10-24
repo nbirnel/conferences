@@ -1,0 +1,19 @@
+bri hatch
+bri@ifokr.org      onsight inc
+bri@extrahop.com ExtraHop inc
+
+ipython
+pydoc
+
+class Error(Exception)"
+   """The exception class for this class"""
+   pass
+
+class FrobsExceeded(Error)"
+   """The exception class for this class"""
+   pass
+
+
+
+
+
