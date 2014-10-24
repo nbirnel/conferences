@@ -1,0 +1,72 @@
+gareth something
+
+at jobs, vs cron jobs, vs salt
+
+master -> minions
+multiple master -> multiple minions
+minions only
+
+zeromq, but "rate" is in the works
+
+remote execution system
+salt 'node1' at.at 12.05am '/sbin/reboot' tag=reboot
+
+configuratoin management system
+
+salt state
+puppet manifest
+chef recipes
+ansible playbook
+CFengine promises
+
+rose:         a name for sate
+  at.present:         module.function
+    -job: 'echo "foo" >love'
+    -timespec: '9:9 11/09/13'
+    -tag: love
+    -user: jam
+
+manage at or cron jobs with salt, but let's do it in pure salt
+
+on minion...
+schedule:
+  job:
+    function: state.sls
+    seconds: 3600
+    args:
+      -httpd
+    kwargs:
+      test: True
+
+run httpd state every 3600 secs on this minion with keyword args
+
+or replace seconds with 
+    cron: '*/5****'
+or with
+    when: 'Monday 8:15pm'   #this is only in devel version
+
+salt returners:
+MySQL, PostgreSQL, Redis, XMPP, SMTP, Hipchat
+add to a job;
+  returner: xmpp
+
+minion configuration:
+xmpp.recipient: to-jib@gmail.com
+xmpp.jid:  from-jid@gmail.com/salt
+xmpp.password:
+
+salt '*' schedule.add job1 function='test.ping' seconds=3600
+
+job2:
+  schedule.present:
+    -function: test.ping
+    -seconds: 15
+
+splay 15 - stagger job by +=15 secs
+range:
+  start: 8am
+  end: 11am
+  invert: true (meaning exclusing of this range)
+
+
+
