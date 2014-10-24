@@ -1,0 +1,21 @@
+ssh-keygen -t rsa -b 2048
+git rm --cached foo #unstage, but leave file
+git reset HEAD -- #go back to commited state
+
+git blame <FILE> 
+gitk      #GUI
+
+git revert <hash to revert too>
+
+git tag -d <tagname>      #delete a tag
+git push origin :regs/tags/<tagname>     #remove the tag from remote
+
+git push <remotename> <branchname>
+git push <remotename> :<branchname>       #delete remote branch
+
+git merge abort  
+
+git pull --rebase       # rollback to last pull, pull, reapply commits
+git rebase --abort
+
+
