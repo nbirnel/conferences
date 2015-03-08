@@ -1,0 +1,30 @@
+dougseven.com/2014/04/17/knightmare-a-devops-cautionary-tail
+
+create a deploy code checklist
+might make a single deploy checklist
+or a general one, customized for different types of deploy
+predeploy (commit, merge, package, test, dependancies)
+deploy (add dependancies, deploy, restart)
+post-deploy (test (rollback), switch service, clean up, get ready for next release)
+could have checklists inside checklist (he uses trello)
+
+perl scripts - hard to maintain
+git update - rollback is hard, manual
+packages - must build, another service
+images - may be unwieldy
+docker - "not a standard yet", runs in an LXC
+
+build servers:
+atlassian bamboo
+anthillpro
+TC
+jenkins (the most popular)
+buildbot (his favorite)
+
+highstate = ShellCommand(name = foo, command = 'salt * sate.higstate', description)
+checkout = ......git checkout
+BuildFactory.addStep highstate
+BuildFactory.addStep checkout
+BuildFactory.addStep highstate
+
+force build through GUI

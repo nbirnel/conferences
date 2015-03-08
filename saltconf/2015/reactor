@@ -1,0 +1,69 @@
+salt event bus
+- open platform for sending messages
+- used by salt
+- two buses
+  - minion to self
+  - minion to master
+
+minion start fires 2 events
+  - auth
+  - a namespaced event
+
+event has a tag and a payload
+tags used to be limited to 20 chars
+tags are ascii only
+tag for quick, top level filtering ("like a newspaper headline")
+payload contains event metadata, in addition to arbitrary fields
+payload may be binary
+
+any app can listen to master or minion bus
+salt.utils.event - an api
+tests/eventlisten.py example in source
+
+salt \* event.fire_master '{"ice_cream": "strawberry"}' my/custom/event
+
+events sent to master are picked up by reactor system
+reactor sls are targeted using tags
+reactor map found in master config
+reactor sls files are in /srv/reactor
+
+"Do not send private data over the event bus"
+
+could put in master or master.d 
+top level statement - not both - master.d wins (bug)
+need to reload master config (how?)
+reactor:
+  - 'salt/cloud/*/created'  # you can use globs. fqdn , so use / not .
+    - /srv/reactor/new_instance.sls
+
+execution modules: cmd.module.func (this is how we can get at states)
+runner.module.func
+wheel.module.func
+
+new_instance.sls:
+new_instance_alert:
+  cmd.pagerduty.create_event:
+    - tgt: alertminion
+    - kwarg:
+      - description: "{{ data['name'] }}'
+      - etc...
+
+runners run on the master
+execution modules run on the minion
+wheels run... where?
+
+wheel system designed to manage things on the master.
+Most often:
+new_instance_alert:
+  wheel.key.accept:
+    - match: {{ 
+
+my_custom_reactor:
+  cmd.cmd.run:
+    - tgt: a_minion_id
+
+salt-master -l debug
+salt-master -l trace
+
+he thinks wheel can reload master config without restarting, but he is not 
+sure how

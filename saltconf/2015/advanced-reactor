@@ -1,0 +1,43 @@
+Dave Boucha (long a)
+salt-call event.send 'somedata'
+salt-call event.fire_master 'saltconf/class/reactor' '["dave", "sarah", "bob"]'
+  tom's original, a little more complex
+
+reactor:
+  - 'tag1':
+    - /srv/reactor/foo.sls
+    - /srv/reactor/bar.sls
+  - 'a/longer/multipart/globbed/*/tag':
+    - /srv/reactor/thing.sls
+
+append_file:
+  local.cmd.shell:          equivalent to salt boucha cmd.run
+  cmd.cmd.shell:  (this is the older version)
+    - tgt: 'boucha'
+    - arg:
+      - wc -l /tmp/dave >> /tmp/dave.test
+
+can use runners or wheels too
+
+beacons
+service watch a config file (actually watching a state), then restart service
+beacons allow us to watch the actual filesystem
+
+wtmp 
+toolio account
+service
+
+beacons currently part of minion, but in future will be a separate process 
+controlled by the minion.
+
+enable beacons in minion config, or in pillar data
+and restart minion
+
+beacons:
+  twillio_txt_msg:
+    accoutn_sid:
+    auth_token:
+    twillio_number:
+    pol_interval
+  wtmp: {}
+

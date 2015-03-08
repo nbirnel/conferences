@@ -1,0 +1,11 @@
+6 When calling an execution function from a pillar file where is the execution run?
+8 Choose the correct syntax for passing a complex data structure to Salt via the CLI
+11 Pillar files can include other Pillar files
+12 How does a pillar sls file retrieve data when calling an execution function?
+14 Salt can be configured to allow unencrypted communication between master and minions.
+19
+29 Pillar data is encrypted on a per-minion basis.
+33 The grains, pillar and config modules contain "get" functions. What do these functions do?
+43 How is the pillar data represented on the minion?
+47 running executions via Salt is always completely asynchronous.
+

@@ -1,0 +1,211 @@
+"no difference between state.highstate & state.sls - just
+different ways of gluing structures together"
+
+PUB:SUB - over the wire, master broadcasts essentially your cli:
+salt -L kevin state.sls apache
+
+Minion says "do I match?"
+kevin then looks up state.sls locally. 
+kevin then runs state.sls with 'apache' argument.
+kevin looks to see if it has apache.sls locally, and if
+ it's checksum matches (uses 4506 two-way channel). 
+ Otherwise downloads.
+Then renders:
+  Jinja | yaml | state compiler (highstate) | state compiler (highstate) | exec
+
+highstate data structure "a way to map args onto a function call"
+lowstate data structure 'ordered list of functions to call'
+
+state module calls out to execution module
+
+"renderer modules are just a way of generating a data structure"
+
+You can shell out from Jinja, which is nonsensical in that structure
+could drop down into raw Python - 
+  "anything more complicated than a conditional or a for-loop" - use
+    a different renderer (incl raw python), or a custom execution module
+look at code for salt.renderers - very short 
+salt.renderers.make
+
+"running dictionary" - what ran. 
+
+vim /srv/salt/_modules/date_time.py
+  def get_datetime
+salt \* saltutil.sync_modules
+salt \* date_time.get_datetime
+
+salt \* state.show_sls apache
+salt \* state.show_lowstate apache
+salt \* state.show_highstate
+
+external pillar - eg salt.pillar.puppet as an external data store, just like
+/srv/pillar.... salt.pillar.mysql (remember this is rendered on the minion - 
+  might set to query locally, or a local sql, or actually have the pillar
+  do the query)
+
+multline syntax in sls |
+    echo is very nice for shelling out'
+    and stuff'
+
+require sets a dependancy tree.
+github DanielBryan/salt-state-graph builds
+include:
+  - apache_mod_status
+
+apache:
+  service.running:
+    - require: 
+      - file: mod_status
+
+so service running first looks to the return status in the running_dictionary
+
+but he recomends inverting this:
+include apache in apache_mod_status,
+and require_in service: apache ditto.
+
+This way apache is generic, but apache_mod_status is specific,
+and we can do a similar thing in apache_mod_php, etc.
+
+watch - another requisite type. A require statement with additional functionality
+only some modules support watch. Only if changes in change_dictionary
+
+so could:
+watch_in service: appache
+
+on_changes - a require statement, with add'l functionality - how diff from watch?
+
+custom events!
+'myco/serverstatus/apache':
+    event.send:
+        - data:
+            message: "Appache was restarted"
+        - onchanges:
+            service: apache
+
+watch causes additional behavior depending on the module
+onchanges works on all modules, you specify the behavior
+onfail similarly
+
+drain_apache:
+  service.dead:
+    - name: apache
+    - prereq: 
+      - git: myapp
+
+prereq will call git: myapp as a dry-run (test=True) and see if it will make
+any changes. If so, it runs git: myapp and runs itself; otherwise it won't run.
+
+Lift - Ryan Lame like big lists of Salt states, rather than little bits like
+this guy is using.
+
+listen
+'have something happen at very end of state run'
+another requisite
+
+aggregate - aggregate multiple calls to the same state function into a 
+ single call
+e.g. hitting yum 15 times in a row.
+not supported by all states, but,
+pkg.mod_aggregate
+might turn on globally in minion config
+or, put in an sls file
+pkg.installed
+  - name: apache
+  - aggregate: True
+
+these have all been minion-centric.
+master-centric:
+old: overstate (some custom semantics)
+new: state.orchestrate
+uses states
+multi-node orchestration (hadoop)
+multi-node deployment (db server, then web server)
+meta-node (restarts, events, external data)
+eg: kernel-upgrade, restart, wait for minion-start, then do some stuff
+state.runners.state.orchestrate
+salt.states.saltmod.state - what kicks of states for a minion
+
+mkdir /srv/salt/orch
+staged_deploy.sls
+deploy_db_servers:
+  salt.state:
+    - tgt: roles:db
+    - expr_form: grain
+    - sls:
+      - maria
+
+deploy_web_servers:
+  salt.state:
+    - tgt: roles:web
+    - expr_form: grain
+    - sls:               # or could do highstate
+      - apache
+      - myapp
+    - require:
+      - salt: deploy_db_servers
+
+
+upgrade_to_baseline.sls
+{% set mid = salt.pillar.get('upgrade_minion')
+upgrade_kernel:
+  salt.state:
+    - tgt: {{ mid }}
+    - sls: 
+      - upgrade_kernel_and_reboot   # we are making this a separate file to 
+                                    # make testing easier
+wait_for_reconnect:
+  salt.wait_for_event:
+    - name: salt/minion/*/start
+    - id_list:
+      - {{ mid }}
+
+configure_minion:
+  salt.state:
+    - tgt: {{ mid }}
+    - highstate: True
+    - require:
+      - salt: wait_for_reconnect
+
+salt-run state.orchestrate arch.upgrade_to_baseline pillar='{upgrade_minion: jerry}'
+
+/srv/salt/orch/accept_new_minion
+{% set mid = salt.pillar.get('mid')
+accept_minion_key:
+  salt.wheel:
+    - name: key.accept
+    - match: {{ mid }}
+
+wait_for_connect:
+  salt.wait_for_event:
+    - name: salt/minion/{{ mid }}/start
+
+check into salt events presence (more passive than test.ping)
+
+salt-run state.event pretty=True
+outputs event bus. meant for shell scripting
+
+salt-call event.send myco/statushcheck/apache foo=foo '{message: "Apache is installed"}'
+
+event.send great for firing custom event in case of fail / success
+
+what to do with the above?
+reactors!
+reactors kick off a process in the threadpool to handle things,
+  since otherwise it would get backed up
+reactor has access to only one variable: data (which is the data from the event bus per event)
+put in /etc/salt/master:
+reactor:
+  - 'salt/minion/*/start':
+    -/srv/reactor/run_highstate.sls
+
+  - 'salt/auth':
+    - /srv/reactor/validate_and_accept.sls
+
+/srv/reactor/run_highstate.sls
+run_highstate:
+  cmd.state.highstate:            # the cmd is required. Reactor needs to know it is talking to a minion
+    - tgt: {{ data.id }}
+
+accept_minion:
+
+salt rest api - used for talking with other services.

@@ -1,0 +1,82 @@
+Wednesday 1:45 ballroom d floor 1
+
+1. descriptive identifiers
+
+apache-package:
+
+apache-service:
+
+are you ever doing these separately? No? Then call it one object - 
+apache
+
+some people will use a sentence as an ID - 
+install-and-run-apache:
+
+2. use short form
+
+"good - more like command-line use, more human-readable, more like the rest of salt"
+short declaration format
+apache:
+  pkg.installed:
+    - name: httpd
+
+bad
+apache:
+  pkg:
+    - installed
+    - name: httpd
+
+if you leave out name param, salt will take the name from the id.
+Every salt function has a mandatory name param
+He recommends always using the name param -
+  picking up from id can pin you to one platform, including in your requisites!
+
+3. comment your state files
+
+apache_conf:
+  file.managed:
+    # FIXME: hard coded for CentOS
+    - name: /etc/httpd/conf/apache.conf
+    - watch_in:
+      -service: apache
+
+4. easy on the jinja!
+
+know the evaluation and execution order
+avoid changing the underlying system
+avoid heavy logic and programming
+
+alternatives:
+drop into py - 
+look at what yaml is generating (online yaml parser), and generate it in python.
+#!py
+
+def run():
+  return {
+      'base': {
+          'roles:web'" [
+            {'match': 'grain'},
+            'apache',
+            ],
+      },
+  }
+
+OK to shell out / cmd.run from Jinja - to extract info, not to make changes
+use it to :
+1 inspect local
+2 gather external
+3 light conditionals and loops
+4 avoid inter-mixing states with Jinja
+
+pkg.installed:
+  {% if grains['os_family'] == 'RedHat' %}
+
+instead, put the jinja at the top the file, make a lookup table
+
+5 Jinja macros
+"if you use them, think of them as mini-templates, not functions"
+
+5. abstract static defaults to a lookup table
+  platform-specific
+  sane-defaults
+  environment-specific

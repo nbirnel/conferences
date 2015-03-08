@@ -1,0 +1,59 @@
+simple python modules
+"no boilerplate" - salt load provides magic variables
+manage from master, without copying to minions
+
+runners:
+executed on master.
+fewer magic variables provided
+for running on master, or for orchestrating minions
+
+salt/salt/modules/test.py
+
+( most of that boilerplate is not required )
+
+pythonism - "dunder opts" = __opts__ as a variable name
+__salt__ dictionary with all execution modules
+__opts__ minion config options from /etc/salt/minion
+__pillar__ minion pillar data
+__grains__ minion grains
+__virtual__ special function used by loader. decide whether to load module,
+            and what name to load it under (eg pkg.install will call yumpkg.install)
+
+see salt/modules/aptpkg.py - each module tries to load, and returns False,
+  or loads as pkg
+
+if more than one module returns virtualname, last one wins
+
+/srv/salt/_modules
+saltutil.sync_modules or saltutil.sync_all for manual,
+but any state run will update modules to minions (including changes or removals)
+synced to *all* minions, so you must have good do I load stuff in modules
+
+custom_users.py
+def users_as_csv():
+  '''
+  return a csv of users
+  '''
+  user_list = __salt__['user.list_users']()
+  csv = ','.join(user_list)
+  return csv
+
+salt '*' custom_users.users_as_csv
+
+these are first class modules, can be called by other modules
+ 
+sys.list_functions customusers
+sys.doc customusers
+
+runners:
+salt/runners/manage.py
+we don't have __salt__
+
+salt-run manage.status
+
+runners stuck in salt install, or define where they live in master config
+
+state modules;
+must have name set, and first arg passed must always be name
+
+

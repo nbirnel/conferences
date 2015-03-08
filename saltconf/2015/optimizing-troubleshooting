@@ -1,0 +1,101 @@
+Mike Place github/cachedout SaltStack Core Developer
+most common complaint - returns have gone missing
+
+A journey to understand
+cli -> master -> minion -> execution -> return to master -> return to cli
+
+all salt CLIs are very thin wrappers around salt API
+
+salt minion test.ping
+localclient parses our command line, and passes to master
+master returns to localclient a list of expected minions
+
+"fundamentally asynchronous at every place we can make it"
+"This makes it hard to debug"
+
+master is a multi-process thing
+we use zeromq to communicate between processes
+Master Event Bus
+when LocalClient wants to listen for returns, 
+it listens on MEB
+2 ways to listen to MEB:
+eventListen.py - part of test suite
+
+ps list
+salt-master publisher
+salt-master recserver
+(only in recent versions of salt)
+these attributes map to classes
+
+MWorkers
+ReqServer 4506 
+Publisher 4505
+
+ReqServer farms out requests to Master
+
+eauth? IO?, preflight happens on mworker
+master caches grains, has pillar, and has info about connected minions:
+connected minions:
+looks at TCP sessions
+looks at keys
+
+RecServer passes list back to LocalClient, 
+and to Publisher
+
+run master in debug mode to see all of these happen
+
+publication goes out to all connected minions.
+minions self-select whether to act
+
+Over on the minion:
+minion evaluates targetting info
+should I run? yes -> fork, because we are asynchronous and must not block
+forked process looks up the functions, and does work.
+Work might involve asking for information.
+state.sls - do I have this sls?
+pillar data - get it from the master
+work gets done
+send back on 4506
+
+test.ping in optimal conditions 90ms - about 70% is in standing up the cli
+90 - 150 ms is baseline
+
+router-dealer pattern farms requests back to workers. 
+ReqServer does not use EB to talk to workers
+it uses zeromq through a Unix domain socket, just not on the MEB.
+deals then out round robin
+say we test.pinged 10K minions, master must not block.
+passes to workers, workers send back to event bus.
+
+LocalClient tries to display info as it is received
+LocalClient gets back all it thought it should see, and it's done.
+What if it didn't get them all?
+If timeout passes, it fires a new pub, asking status of job
+master asks for information about job
+minion - "I'm still working on it"
+cli will reset timeout
+minion doesn't talk back: cli gives up
+
+minion fork uses its EB IPC to talk back to parent
+
+minion swarm - create an arbitrary number of minions to talk 
+back to master
+
+DEBUG:
+salt-run state.event (alt to EventListen)
+debug logs
+
+OPTIMIZING:
+(usually not an issue below 1000 connected minions)
+master:
+max_open_files
+  - each minion uses at theast one file descriptor, the master
+   subscription connection
+   "if you hit a limit, networking goes sideways"
+worker_threads: 
+  30 is the biggest he knows of.
+  50 would be like LinkedIn
+keep_jobs: how long to keep in job cache (is this memory?)
+loop_interval: cleanup. if it's very busy, make it more
+  frequent to smooth it out
+timeout 
