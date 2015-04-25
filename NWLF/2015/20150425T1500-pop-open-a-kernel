@@ -1,0 +1,80 @@
+Ian Kronquist at OSU 
+
+github/iankronquist/pop_goes_the_kernel
+
+*kernel:
+middleman between userspace & hardware
+these days, do memory protection
+
+*history:
+time-sharing first,
+then abstraction layer
+
+unix 1973
+bsd 1977
+gnu hurd 1983
+linux 1991
+solaris 1992
+NT 1993
+XNU (OS X - originally Next?) 1996
+
+see history of unix kernels in wikipedia
+
+reboot-free updates of kernel for linux 4.0 - ksplice
+linux containers since 2008 - "almost mature enough for production use like Docker"
+  "not the most secure things"
+Formal verification "an open challenge"
+  RPC developer wants to do this
+
+*theory
+microkernel:
+  runs drivers in userspace
+    task switching userspace / kernel mode expensive
+    'A bunch of embedded kernels you've never heard of'
+monolithic kernel:
+  runs drivers in kernel mode.
+    broken driver can take down the whole system
+    Linux, BSD
+Hybrid kernels:
+  core services baked in, but offers was to run other drivers in userspace
+    windows, osX
+    osX: kext (kernel extensiond)
+Unikernel:
+  a kernel which runs one program
+    'bleeding edge, or a VAX'
+
+Kernel modules:
+  load drivers while kernel is running, without rebooting.
+  Still monolithtic (bad drivers can crash), but allows dynamic loading
+  lsmod
+
+*user mode and kernel mode
+most kernels use HW memory protection. Baked in to x86 (and arm?)
+
+ring0 (kernel)
+ring3 (user)
+1 & 2 not in use
+page fault is user program trying to access other stuff
+
+Hardware interrupts: 
+every time you press a key, signal is sent to a process which triggers a HW interrupt
+
+"interrupt table" set up a boot. Each entry has a magic number, and a function which gets run.
+
+a syscall: a special function to ask the kernel to do something.
+read or fread is a syscall - it is not part of a lib, it is in the kernel or the driver.
+
+read -> kernel -> file-system driver -> hard-drive 
+
+syscalls in Linux x86
+syscalls in a table: a number, a calling convention (assembly lang stuff), a pointer to a 
+function in kernel 
+
+*write your own kernel
+easy to write a kernel which boots and writes to a screen.
+"some basic c/c++"
+
+bochs or qemu to get an emulator. VirtualBox works too.
+Will need to build a cross-compiler: build gcc for x86, eg
+
+the linux kernel module programming guide
