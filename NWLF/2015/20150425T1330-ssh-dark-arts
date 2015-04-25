@@ -1,0 +1,78 @@
+*keys + agents
+comment at end of public key is arbitrary and can be anything
+ssh-copy-id (like my authme. Dedupes!)
+authorized_keys2 was made for protocol2, marked as deprecated
+force command in authorized_keys:
+command='/path/to/command', no-port-forwarding, ssh-rsa SDKJALAAAaasdf comment
+
+ssh-agents carry keys - locked or unlocked. Some have timeouts.o
+
+ssh fowarding:
+ssh -A 
+while you are connected, someone could use you ssh-sock.
+ssh jumpbox -A
+from jumpbox, ssh to wherever you are going.
+
+*config
+Host irc
+  Hostname irc.domain.name     (ie, this is like an alias)
+Match *lighthouse.sec
+  Username root@lighthouse.sec
+  ForwardAgent yes 
+You can inherit in configs
+
+Keeping alive:
+TCPKeepAlive - pings every 3 seconds, possilbly allows someone to spoof
+ServerAliveInterval - goes within encrypted session
+
+mosh:
+leaves keys in the proc ENV
+
+ssh commandline: 
+~ at beginning of line.
+~. terminated connection
+~# list forwarded connections
+
+*port forward & tunnels
+ssh -L8080:intranet.mozilla.mozilla.org:443 ssh.mozilla.com
+reverse forwards:
+broadcast local 8000 to 2241
+ssh -N R0.0.0.0:2241:localhost:8000 bke.ro
+python2 -mSimpleHTTPServer
+serve up a local directory as a webhost
+
+"poor man's proxy"
+dynamic forwards (SOCKS proxy)
+-N no command prompt
+ssh -N -D1080 ssh.mozilla.com
+
+tsox curl icanhazip.com
+
+sshuttle (on github) - does some fancy iptables 
+
+*xforwarding (changed since 90s)
+ssh -X server.org    (old style)
+ssh -XY server.org    (just disables all the security stuff in X to speed it up)
+Xpra - "like screen for X"
+ssh foo.com
+xpra start :10
+DISPLAY=:10 xterm
+
+from some other host, ssh in, and:
+xpra list
+
+or, xpra attach hostname
+
+*muliplexing connections
+man ssh_config ControlMaster, ControlPath
+in config:
+  ControlMaster
+  ControlPath /home/nbirnel/.ssh/%h.socket
+
+allows us to multiplex connections through one.
+*best practices
+PermitRootLogin no  - accountibility, who did this, disgruntled employees
+GatewayPorts        - only allows forwarding connections to localhost
+Keys only (authentication methods: publickey, or force root to use a key(then at least you know which key was used))
+AuthorizedKeysCommand - added in the last few months, runs a script to see who should be able to log in
+
