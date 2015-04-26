@@ -1,0 +1,132 @@
+zen of python python.org/dev/peps/pep-0020
+(import this)
+pep 8
+
+'code like a pythonista'
+raymon hettinger - 'beautiful, idiomatic python'
+
+don't use loops if you don't need to
+any(), all(), min(), max(), sum() 
+
+throw away 3 lines - (_ is a throwaway var, sim to $_ in perl?)
+with open etc
+  for _ in range(3):
+    netxt(f)
+  for line in f:
+    myfunc(line)
+
+throw away a first line
+with open(my_file, 'r') as f:
+  header = next(f)
+  do_stuff
+
+itertools. 'study and learn' - includes islice, similar to slicing lists
+def before_header(x):
+  return x != 'header'
+
+my_it = dropwhile(before_header, my_list)
+next(my_it)
+
+lambda "not cool or better" - "if it needs a name, just define it with a name"
+
+this will fail : mutate a dict while iterating over it. Instead, key in list(mydict)
+for key in mydict:
+  if is_bad(key):
+    del mydict[key]
+
+"command / query separation"
+if it mutates an object, returns none
+x = my_sort.sort()
+assert x is None
+
+list_sorted = sorted(my_list)
+
+sort a method on the object
+sorted a function with returns 
+this is a convention, not 
+
+'easier to get forgiveness than permission'
+d = {}
+for name in list_n:
+  try:
+    d[name] += 1
+  except KeyError:
+    d[name] = 1
+
+d = {}
+  for name in list_n:
+    d[name] = d.get(name, 0) + 1
+
+from collections import defaultdict
+
+d = defaultdict(int)
+for name in list_n:
+  d[name] += 1
+
+from collections import Counter
+d = Counter(l_n)
+
+List comprehension:
+          expressionn       for i in ...  optinal test
+my_list = [x**2             for x in data if x==int(x)]
+
+Dict comprehension:
+d = { chr(ord('a')+1 : i+1 for i in range(26) }
+
+set comprehension:
+(like dict, but no colon)
+
+Generator expressions:
+instead of doing list comprehension, and throwing it away, creates an iteratorg
+g = (x**2 for x in data if x==int(x))
+  
+with open(f, 'r') as f:
+  res = sum(int(line) for line in f)
+
+with open(f, 'r') as:
+  count = sum(1 for line in f if line.strip())
+
+bad = any(w in bad_words for w in my_list)
+
+Generators:
+anythign with yield
+def gen_range(start, stop):
+  i = start
+  while i < stop:
+    yield i
+    i += 1
+
+g = gen_range(0, 3)
+every time next is called on it, 
+it gets to yield, and donee.
+
+def read_words(fn):
+o
+Tree traversal:
+
+yield , and yield from ( allows recursive calls) 
+
+context managers:
+f = open f
+try 
+  for line in f 
+    fun f
+finally:
+  close
+
+vs 
+with open
+
+with suppress(filennotfounderror)
+
+write your own context managers:
+def __enter__(self)
+def __exit__
+
+decorators:
+def my_fucnt(x)
+
+@my_decorator
+
+best practice: @wraps
+from functools import wraps ( copies docstring out of wrapper)
