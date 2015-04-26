@@ -1,0 +1,50 @@
+Lee Fisher
+
+download love live
+
+uefi, coreboot, bios.
+
+uefi shell, chipsec, LUV, 
+
+bootkits scarier than rootkits.
+OS vendors (apple drm) and malware moving stuff into firmware.
+
+IBM PC BIOS - image in first sector of MBR
+ring 0 doesn't handle 
+negative rings
+-1 vmm
+-2 smm
+-3 
+
+UEFI Architecture
+universal extensible firmware interface
+a new GPT partition table format'special fat volume, the 'ESP'
+no boot sector, code is in uefi firware system image
+uefi 'is a complete operating system' that loads another OS
+after other os is loaded, boot time service stop, but runtime services keep going.
+
+could run an embedded system with just uefi and some apps.
+'pre-OS' apps and 'os-present' tools
+EDK-II Security Advisories.
+
+BIOS dying, but CoreBoot available (used by Google on ChromeBooks)
+UEFI can use CoreBootPkg as the PI (platform interface) part.
+
+LibreBoot FOSS version of CoreBoot
+QEMU 'best soln for virtualized EFI'
+KVM and Xen have some suppot, as does VirtalBox.
+
+UEFI Guid Partition table
+efi uses a PE/COFF-based format, not ELF.
+EFI Byte Code (EBC) - Intel C compiler the only one that compiles to it.
+
+capsules - allow OS to update drivers
+full network stack  - pxe, ipsec, chap, ipv4&6, vlan, wifi, ethernet, bluetooth
+
+new box - just sniff it to see what's talking. WS-management.
+bootloaders:
+GRUB2
+rEFInd
+
+bzImage console=tty etc etc
+
