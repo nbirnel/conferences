@@ -1,0 +1,28 @@
+Bri Hatch
+"all monitoring systems suck"
+'Nagios sucks most popular'
+avoid inheritance
+
+tcpdump -G to a big disk, and rotate periodically, clean up after 2 days.
+Then you can go back and wireshark it if you need.
+
+monitoring: different than logging. 
+
+checking for the unknown:
+RUM (real user monitoring - boomer.)
+
+alert: 
+* page - broken. Fix it now.
+* ticket - weird, or requiring investigation.
+* log - "don't look at your logs. Look at them when you know you have trouble,
+  or are trying to improve"
+* no email
+alert based on:
+* known bad
+* percentages
+* trend (on Saturday, how did I look last Saturday - not how did I look yesterday)
+* rapid changes
+
+SLA - a measure of risk-taking potential. ( i have 40 minutes of available down
+time before EOQ. Push without testing.)
+
