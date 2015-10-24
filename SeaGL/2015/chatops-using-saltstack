@@ -1,0 +1,32 @@
+Gareth J. Greenaway
+
+"lead DevOps Engineer CrosCon"
+
+"Go Away or I shall replace you with a very small shell script"
+"inserting tools into chat tools like irc, slack, etc"
+
+mplug  - hard to configure?
+
+salt-returners - mysql, nagios, chat:
+xmpp, slack, hipchat, victor-ops
+
+slack engine built into saltstack
+slack.username: 'GarethBot'
+slack.channel: '#general'
+slack.as_user: 'GarethBot'
+slack.api_key: xxxx
+alt.slack.channel:'#random'
+
+salt \* test.ping --return.slack
+
+irc bots: github/torhve/saltibot th
+russellballestrini/foxbot
+
+hveem.no/salt-xmpp-gateway
+
+salt engines live on master, listen for events
+
+chatops: allow access to certain salt commands with ssh and other ACL crap.
+eg allow scandesk to test.ping or nexpose.scanning or nexpose.uptime
+
+logstash, redis, sqs_events(amazon?) engines
