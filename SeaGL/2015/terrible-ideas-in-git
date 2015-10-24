@@ -1,0 +1,28 @@
+cquinn@futureadvisor.com
+Corey Quinn ('a early terrible developer of saltstack')
+
+He thinks copying keys to prod servers from a laptop is the worst idea.
+He prefers to GPG encrypt keys and then commit to git(!)
+
+git config --global help.autocorrect [10ths of a second to wait]
+
+github/nvbn/thefuck (super duper autocorrect)
+
+acaudwell/Gource - a 'useless' display of git history
+
+https://myrepos.branchable.com - a cache of repos we have.( ie, you can fetch all repos you have
+before you get on a plane) 
+mr register in each repo you care about - builds ~/.mrconfig
+He also has git annex
+
+RichiH/vcsh -vc for home dir - beautiful multirepo like my git dot, using symlinks
+
+powerline - prompt for git status
+git supershell - zsh only
+
+.gitconfig since 1.7.10 allows includes
+[include]
+    path = /path/to/file #abs or rel, but no ~ or environmental expansion?
+
+
+
