@@ -1,1 +1,42 @@
 He needs a thunderbold converter
+
+Aaron Wolf
+Music teacher in OSU.
+Frustrated by Apple censoring GPL progs on iOS.
+
+Is audacity on android
+
+KXStudio ("not really a distro" - ppa's on Ubuntu)
+AV Linux
+Fedora Jam
+Musix - FSF endorsed
+
+    hw
+    alsa(kernel module- only 1 stream of audio)
+    pulseaudio (manages audio from many sources)
+
+jack is an alternative to pulseaudio
+
+loop cable from output to input, find out exact latency, then set audacity 
+latency settings.
+
+cadence, part of KXStudio. A way of hookinng Audacity to jack, since audacity
+is not very jack aware.
+
+musescore - a fork of muse.
+
+katia
+
+Tell a program to connect to the jack master transport.
+You may set a master; otherwise "first is master"
+
+ardor can run w/o jack
+
+klaudia, non-session manager - session manager tools - save and load a 
+session of programs hooked into jack in various ways with various settings.
+
+then take all of the jack things that were plugged into speaker, and plug them
+into a saved file.
+
+wolftune.com
+
