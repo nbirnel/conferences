@@ -1,0 +1,17 @@
+repo.saltstack.com/ - new approved instead of epel
+archive version for enterprise customers
+
+chap 
+salt-cloud -p cloud-centos nbirnel-web01
+
+set up a local clone of repo.saltstack.com and 'redirect' in a proxy file 
+  that way the salt-cloud bootstrap gets lied to 
+
+'POSSIBLE BREAK-IN ATTEMPT' is (supposedly) a warning because known_hosts is
+  not being updated
+
+load_yaml as osmap! awesome
+
+look at thorium for orchestration
+
+salt-run state.orch orch.scale_up_web
