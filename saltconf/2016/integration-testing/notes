@@ -1,0 +1,29 @@
+placebo - mock out boto ec2 calls
+troposphere - library to create AWS CloudFormation descriptions
+
+qa as continuous delivery (jenkins)
+other envs weekly deploy
+redis
+
+jenkins nodes as salt minions
+
+ec2 container service - ecs:
+Make a cluster, and run 'tasks' (which are just docker containers)
+
+SIT - salt integration testing
+
+ASG - AutoScaling Group
+  Launch Configuration
+
+Instance Profile
+Policy
+Role                   
+
+ECS Cluster
+CloudFormation
+
+This pure integration testing - did the states succeed or not?
+other person suggests:
+ssplatt/saltstack-infratest-module
+
+
