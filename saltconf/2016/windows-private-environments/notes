@@ -1,0 +1,68 @@
+deploy and configure homegrown windows software
+Eagle Seven
+
+old:
+dev -> list of .dll + exe
+python vs cmd + powershell
+  
+"Don't like group policy when distributing own software"
+
+1st:
+dev -> build server
+ops -> usb stick -> salt-master & git
+
+packaging was a problem. Making zips
+
+new:
+1 templative states into custom app templates
+2 pull binaries off of build servers
+3 put all version in sane place (pillars maybe)
+4 do away with zips
+5 enforce naming standards
+moved from TFS to Team City
+
+Make a standardized location for code - a release directory
+
+Use a build system you can query with an API Jenkins, TeamCity
+How do you build binaries? msi with tfs "hard to manage"
+
+Don't package anything: make dlls , exes, config files. Let salt deploy 
+  them directly.
+
+Custom pillar
+
+windows_cron:
+  Start: "50 16 1-5 *"
+  Stop:  "00 16 1-5 *"
+
+salt "WIN*2" pip/install cwd=
+install_croniter_salt_python
+might set up own pip server: pipserver or pypy server?
+
+have a push path and a run path
+and have a python startup script:
+C:\push_path\app-2016-03-05.exe
+D:\run_path\app-2016-03-04.exe
+startup script says: push path is more recent than run path: move it to run_path
+  before running run_path
+
+salt-clean for removed files
+
+using TFS to build - then could "approve" before moving to salt repo.
+
+salt winrepo
+
+schedule maintenance through salt
+
+Tips:
+git server
+local pip server
+run win minions as admin
+iuse git roots for state files, config files, pillars
+User file roots - don't push bins to git
+don't symlink stuff into local roots
+
+"boxcutter windows" 
+pycharm
+
+
