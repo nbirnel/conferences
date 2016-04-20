@@ -1,0 +1,15 @@
+salt target dosomething --out=highstate -l debug
+inspect minion log
+
+salt target cp.list_states
+
+require and watch can also be thought of as "short-circuit on failure"
+
+salt target state.show_low_sls state
+
+grains.pillar (pillar is expensive)
+
+salt target state.show_sls state
+
+.sls is a representation of high data -> yamlrenderer -> highdata -> lowstate compiler ->
+  lowstate data
