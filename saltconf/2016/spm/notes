@@ -1,0 +1,22 @@
+spm commands largely modelled after yum.
+spm packages modelled on pacman/rpm
+FORMULA files flexible - anyone host own repos
+  spm will ignore fields it does not understand (for in-house implementation)
+
+2015.8 minimum version
+
+$ tree
+some-formula/
+  some/
+    init.sls
+    map.jinja
+FORMULA
+$ spm build some-formula/
+
+mv (output) /srv/httpd/spm_repos
+spm create_repo ;
+
+darkhttpd
+/srv/salt/spm/
+
+
