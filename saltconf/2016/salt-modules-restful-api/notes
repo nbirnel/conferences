@@ -1,0 +1,50 @@
+my number: 53
+*client API vs restful API
+*proxy minion?
+
+
+Is my state valid? Render it
+salt \* state.show_sls packages.xclip
+Is my top valid?
+salt \* state.show_top
+
+o
+salt \* state.sls packages.xclip test=True
+
+54.164.49.38
+
+states: must return
+{ 'name': name,
+  'changes': { 
+      'old': old_data
+      'new': new_data
+  },
+  'comment': '',
+  'result': True|False
+}
+
+Shoudl always have a test=True test
+could also have a pchanges dictionary = set up to see what we are going to do,
+  then use that for test=True and/or the actual performance
+
+He recommends to 'figure out as much as you can about current state, and figure
+out what we would do, then check if we are testing. If so, bail - otherwise, 
+proceed.'. See state.pip_state for what he considers a good example.
+
+API:
+local = salt
+caller = salt-call
+runner = salt-run
+cloud = salt-cloud
+ssh = salt-ssh
+wheel = eg salt-key -a
+
+restful API is just a wrapper
+a script called salt-api which provides restful api for salt
+
+turn on external_auth
+
+github salt-pad (UI for salt)
+cli called pepper 
+docs in netapi
+

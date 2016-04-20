@@ -15,3 +15,4 @@ load_yaml as osmap! awesome
 look at thorium for orchestration
 
 salt-run state.orch orch.scale_up_web
+
