@@ -1,0 +1,12 @@
+11:47
+19 jinja used to execute salt
+21 capability to orchestrate routines on minion
+27 salt-run doc.execution?
+34 multiple services state.highstate allstates
+47 pillar custom objects or stings not supported?
+54 which cannot be used to accept and/or delete keys 
+   rm
+   all can be used
+   top file use renderers?
+70 pillar data encrypted per minion?
+

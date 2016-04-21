@@ -1,0 +1,25 @@
+Correy Quinn
+@QuinnyPig
+
+DevOps Manager at FutureWorks?
+
+LXC
+FreeBSD jails
+chroots
+OpenVZ
+
+dev            prod
+
+               Security
+               Code Quality (difficult to audit a container provided by devs/3rd party)
+               Container hosting 
+               peer / service discovery 
+               config changes (having salt inside docker container?)
+               supervision (docker tries to do it, so does systemd)
+               monitored (docker hostnames are random!)
+               rolling deployment (canary analysis)
+               networking
+               kubernetes/mesos (scheduling)
+docker         docker
+
+golden images vs config management - not either/or, but a spectrum
