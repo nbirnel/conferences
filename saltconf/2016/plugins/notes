@@ -1,0 +1,17 @@
+loader.py
+uses python imp system, not importlib 
+  ("I don't want a dependency on 2.6 that I don't need")
+Thomas Jackson's lazy loader
+
+Highstate object traverses file roots tree, collects sls files, renders in to
+  highstate structure
+Stage object  - where configuration management lives. Compiles highstate object
+  to lowstate object
+
+lowdata - ordered list of execution data. "What makes salt deterministic"
+
+top
+sls
+highdata
+lowdata
+state runtime
