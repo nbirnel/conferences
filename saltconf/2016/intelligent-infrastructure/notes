@@ -1,0 +1,21 @@
+beacons:
+  service:
+    nginx:
+      onchangeonly: True
+
+engines:
+  docker_events:
+    docker_url: unix://var/run/docker.sock
+
+    "long running external system processes that leverage salt"
+
+reactor on master
+can trigger exectution module on targeted minions
+wheel events
+
+myreactor:
+  local.state.sls
+    - tgt: sometargets
+    - arg:
+      - arg1
+      - arg2
