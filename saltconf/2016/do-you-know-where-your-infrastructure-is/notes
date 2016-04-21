@@ -1,0 +1,48 @@
+"chef excels at testing, and salt needs to catch up"
+Jason Denning Cloudera  DevOps on certification team
+@jason_denning on Twitter
+jasondenning GitHub
+
+spins up 10's of Hadoop clusters with custom problems for people to fix
+
+DevOps says Infrastructure as Code
+Code should be tested
+Infrastructure should be tested
+
+side effects: documentation, workflow, bringing in new people
+
+https://blog.acolyer.org/2015/11/11/the-o-ring-theory-of-devops/
+"The O-Ring Theory of Economic Development" Kremer 1993
+
+Show this to Joe, especially 7-8 minutes in re half-day deploys
+
+in order of: Hardest to easiest when it comes to infrastructure
+Unit Tests = a single unit of code
+Integration Tests = interaction between units
+Acceptance Tests = code does what we expect
+
+He likes BDD for infrastructure
+(he uses Gherkin, or Cucumber?)
+
+python bdd uses decorators
+@pytests.fixture
+@scenario
+@when
+@then (put assertions here)
+
+minimal testing: 
+salt-call state.highstate test=True
+more isolated:
+salt-call state.sls foo test=True
+more detailed error messages:
+salt-call state.show_sls foo
+now a testable object:
+salt-call state.show_sls foo --output=json
+
+previously used pybehave, switching to py.test with bdd plugin
+
+docker - install a masterless salt and run highstate
+So we use salt to spin up a bunch of containers, each of which will have
+  testing infrastructure 
+
+
