@@ -1,0 +1,92 @@
+Seth House SaltStack
+
+use pkg.installed,
+install_apache:
+  pkg.installed:
+  - name: httpd
+
+not: (legacy)
+install_apache:
+  pkg:
+  - name: httpd
+  - installed
+
+specify the name parameter, so make it easy to parameterize, rather than
+using default identifier as name
+
+Use comments anyplace
+
+# Install Apache package
+install_apache:
+  pkg.installed:
+  # Here is a comment
+  - name: httpd
+
+
+You can have a longer render pipes order than #!jinja|yaml
+#!gpg|jinja|yaml
+
+jinja: inspect local, gather external data, light conditionals and loops, 
+  call execution modules
+
+"avoid intermixing Jinja with state declaration"
+Jinja macros - "don't do any logic in a macro - use an execution module"
+
+Use map files for things that vary - keep osfamily, environment, etc out of 
+  .sls files
+
+combine:
+filter_by have defaults and merge args
+recursively update: slsutil.merge, slsutil.update (future updates)
+
+filter:
+grains.filter_by
+match.filter_by
+
+write: 
+slsutil.renderer
+
+
+minions figure out their match by salt.modules.match
+
+breaking out .sls per identifier makes testing easier, make modularizatin 
+  easier, makes it usable by reactors, orchestrations, top files
+
+need a more complicated sls?:
+#!py
+
+def run():
+  return { some sort of dict (might use yaml to dictionary converter) }
+
+Why use this instead of execution module? If all the logic is just going to 
+create a state structure, use pyrender. If you want to reuse it, maybe use 
+an execution module.
+
+1 jinja
+2 yaml
+3 highstate                                  state.show_sls displays this (no jinja errors, no yaml errors)
+4 map dicts to ordered function calls        state.show_low_sls?
+5 running dict                               state.sls foo test=True (There may be 
+                                             state.sls foo mock=True (only latest code?)
+
+What are you testing? 
+Test each bit (identifier) before adding.
+1 jinja yaml syntax
+2 state syntax
+3 execution order
+4 model failures
+5 verify result
+states.test.check_pillar 
+
+try - failhard=True
+
+ceratena/salt-state-graph
+dry-run coming in the future
+
+{% if not thing %}
+{% State Failed due to lack of thing! %}
+{% endif %}
+
+
+
+
