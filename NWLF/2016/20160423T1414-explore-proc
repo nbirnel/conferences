@@ -1,0 +1,35 @@
+http://slides.unsupported.io/explore-proc
+Alex Juarez
+
+rm /var/log/httpd/access_log
+lsof | grep access_log
+# grab PID and FD(eg 7w - fd7 opened as write only)
+cd /prod/$PID/fd
+ls -lah
+cp $FD(minues the w) /tmp/restored_log
+
+those proc files are symlinks.
+
+/proc/cmdline - boot args
+/proc/1/cmdline - what is my init!
+
+/proc/<pid>/oom_adj a per-process adjustable: -17 = never kill, 15 kill freely
+ deprecated for oom_scale_adjust?
+
+pidof myproc
+pgrep -uroot myproc
+cat /prod/self/cmdline - self is an alias 
+o
+
+/proc/sys - kernel tunables
+sysctl -a 
+  output can be seen in /proc/sys
+many defined in /etc/sysctl.conf
+so on the fly echo to /proc/sys/[tunable/path]
+
+vmstat iostat ("when we don't have new relic or appdynamics")
+  they are just reading proc
+
+ss -nltp
+
+a few things have been moved into /sys
