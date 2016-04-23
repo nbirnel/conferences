@@ -1,0 +1,52 @@
+github jemc 
+
+pony
+
+concurrency:
+multiple tasks executed in a disjointed, overlapping way
+could be paralell, interleavevd, scheduled.
+"relative order of execution is unknown"
+each task has internal order 
+
+concurrency alone gives no benefits:
+but we can run in paralel, so we can work for scalability and efficiency
+
+fear:
+non-determinism:
+  data race
+  non-atomicity
+  deadlock
+
+Fixes:
+synchronization: (if tasks share state...)
+  mutex
+  locks
+But this is a way of *reducing* concurrency
+
+So try to be precise about synchronization
+
+approaches:
+1. Share nothing! (If you can)
+
+2. Share immutable state only! (immutable data structures, frozen objects)
+
+3. Transfer isolated state: one task at a time can alter a mutable state
+  We are sharing across time.
+  "thread ownership"
+  "message passing"
+  Requires strict discipline, or language support, to avoid leaky refs.
+
+So he says throw out synchronization - use the 3 "safe patterns"
+
+Pony:
+compiles to LLVM -> platform-dependant arch (like clang)
+
+OO, but has FP stuff like HOF, map, fold, lambda,
+
+Actor paradigm - Actors are objects, which you cannot call synchronous methods -
+instead you pass in messages which trigger behaviors. No blocking.
+
+Capability Security Paradigm:
+I give you an unforgeable token of authority to do a thing I am authorized to do.
+
+
