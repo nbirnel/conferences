@@ -1,0 +1,39 @@
+larry hastings
+larry@hastings.org
+
+sys.getrefcount(a)
+  always higher because the call itself makes a ref!
+
+Global Interpreter Lock
+
+i/o bound - mulitple threads, waiting for i/o - no problem
+
+cpu bound
+  this makes us essentially single-threaded, because the GIL only allows
+  one at a time
+
+Dave Beazley "Understanding the Python GIL"
+the gil was releasing and immediately grabbling the lock
+The new gil in 1994? allows a requester to state 
+  "I want the lock, and please don't just grab it back"
+
+"It isn't Easy to Remove the GIL" by Guido Rossum 2007
+
+Threads cost a lot in Python. 
+
+pypy - python written in python - crazy fast?!
+jython, ironpython have tracing gc, not gil, so they might be better for multithread
+pypy has tracing gc, and can sometimes use the gil
+
+cpython gets a c api, so extensions.
+jvpm, clr, pypy do not. 
+
+"modern" languages without c api are not stuck with a gil - lua, go, rust, etc.
+
+cffi  - nice for bindings to c, but probably won't really make you go faster.
+
+cpython is the only one with py3. pypy is working on support.
+
+multiprocessing.pool is a multiprocess alternative to thread.
+
+
