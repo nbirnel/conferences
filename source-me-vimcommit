@@ -1,3 +1,6 @@
 vimcommit() {
-    vim $1 && git add $1 && git commit -m $1 $1
+    now="$(date '+%Y%m%dT%H%M')"
+    talk="$1"
+    file="$now-$talk"
+    vim "$file" && git add "$file" && git commit -m "$talk" "$file"
 }
