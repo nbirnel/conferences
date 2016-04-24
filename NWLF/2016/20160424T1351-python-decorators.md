@@ -114,4 +114,9 @@ https://www.reddit.com/r/Python/comments/4enqb7/sudo_decorator_an_evil_hack/
 multiple decorators on single fun are possible, or you can create a decorator
 with multiple-decorators inside
 
+a decorator takes one argument = a function reference. To get around that,
+we make a decorator which closes over the args to create a new decorator.
 
+https://linuxfestnorthwest.org/sites/default/files/slides/python_decorators_inception.odp
+
+context.lib.context manager
