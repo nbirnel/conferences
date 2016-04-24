@@ -1,0 +1,48 @@
+syslog-ng, rsyslog, metalog
+
+# Becomming a system user and checking what perms I have
+sudo su - ntp -s /bin/bash
+whoami
+groups
+ls -l /etc/ntp.conf
+
+syntax checkers:
+apache2ctl -t -D DUMP_VHOSTS
+puppet parser validate /etc/puppet/manifest/something.pp
+
+strace and lsof solve most things!
+=========
+cannot open shared object file
+ldd $(which perl)
+LD_LIBRARY_PATH 
+
+strace: run a new process or attach to a running program
+strace -p $(pidof myprogram)
+-f -p -c -e (open/read/connect)
+
+Only show the "open" syscalls
+strace -e open ls
+
+show times:
+strace -c ls
+
+ltrace - library calls, not syscalls
+
+notify-send! (off-topic)
+privoxy      (off-topic)
+
+lsof -p $(pidof <program>)
+
+gdb
+===
+
+systemtap
+======
+has it's own programming language
+dtrace
+
+
+lttng (linux tracer toolkit next-gen)
+=====
+Requires kernel modules
+
