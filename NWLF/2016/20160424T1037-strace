@@ -1,0 +1,34 @@
+Alex Juarez
+alex.juarez@rackspace.com
+
+system call is a function provided by the kernel
+
+-v verbosity
+-p attach
+
+strace sends a SIGTRAP. A traced process (proprietary, eg) may block a SIGTRAP
+and instead get a SIGSTOP & crash.
+
+strace -o file (output goes to stderr?!)
+
+watch all child processes
+strace -ff -o file -p $(pidof <process>)
+
+top-ish
+strace -c w
+
+systemcall syntaxjo
+read(arg, [arg...], returnvalue)
+
+man 2 syscalls
+
+only see the calls to open
+strace -e trace=open
+
+stop truncating lines
+strace -s4096
+
+ps afux
+
+yes, strace can show sensitive data
+ps acct
