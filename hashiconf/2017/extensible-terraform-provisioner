@@ -1,0 +1,8 @@
+terraform bare metal?
+
+
+- terraform-provider-mycloud
+  - main.go
+  - provider.do  what resources I support
+  - resource_mycloud_instance.go  crud
+  - data_source_mycloud_instance.go  read()
