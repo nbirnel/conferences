@@ -1,0 +1,17 @@
+Leslie Lamport: Paxos; Paxos made Simple
+David Mazières Paxos Made Practical
+
+Johm Osterhout: Raft
+
+leader, follower, candidate
+all start as follower
+not hearing from a leader, promote self to candidate. Vote for me!
+Once a majority found, a leader is elected.
+
+Now all changes to the system go to the leader,
+which is responsible for maintaining state.
+When leader receives a request, it tells followers to add change to log.
+When it gets an OK back, it updates it's state, then tells followers to commit.
+When it gets an OK back, it sends OK to the client.
+
+
