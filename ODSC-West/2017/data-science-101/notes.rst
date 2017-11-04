@@ -1,3 +1,5 @@
+https://github.com/cmmalone/ODSC2017_datascience101
+
 She thinks SciKitLearn docs are a good way for learning (or remembering)
 data science concepts.
 
