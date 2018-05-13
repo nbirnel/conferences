@@ -1,0 +1,29 @@
+
+https://how.complexsystems.fail
+
+Blameless post-mortems
+ ? Honesty with customers
+
+ 
+elements:
+
+* summary of what happeded and what was the impact
+* how was the incident resolved
+* a complete timeline of what happened
+* causes (plural!)
+* what went well and what went poorly during handling of the incident
+* follow-up actions
+  ? How do I keep this going out of bounds?
+
+Get some practice:
+
+* simulate an incident (@badthingsdaily)
+* cause an incident (Chaos Monkey)
+* Lower the threshold for what is an incident
+
+hot wash or post-action review (military)
+post-morbidity and mortality conference (doctors)
+(NTSB)
+
+https://alexgaynor.net
+https://speakerdeck.com/alex

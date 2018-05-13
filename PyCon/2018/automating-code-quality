@@ -1,0 +1,27 @@
+Kyle Knapp
+
+SDK for Python AWS (different from boto3)
+chalice, a Python-based microservices client
+
+his big 3:
+* flake8: a wrapper for 3 tools
+  - pycodestyle (pep8, style)
+  - pyflakes (probable errors - unused imports & variables)
+  - mccabe (complexity checker - mccabe suggests a max complexity of 10)
+* pylint: more opinionated than flake8, and slower (so run 2nd)
+* coverage
+
+some more:
+* mypy static code analysis tool
+* pydocstyle 
+* doc8
+
+local automation:
+* requirements-dev.txt separate from requirement-doc.txt and requirements.txt
+* Makefiles, duh
+
+remote automation:
+* .travis.yml
+
+further Ideas:
+* doclink checks!

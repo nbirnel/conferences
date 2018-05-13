@@ -1,0 +1,20 @@
+# create a process that is not your child; creating a service unit on the fly
+    systemd run 
+
+take away view of homes, or make whole files system read-only
+    extras [
+        ProtectHome
+        ProtectSystem
+        ]
+
+    BinPaths
+    BinReadOnlyDirectories
+
+    PrivateTmp
+    TemporaryFileSystem
+
+Restrict IP addresses
+
+CGroups
+
+
